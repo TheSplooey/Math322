@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Math 322 Compendium}
+\author{Jacobson sucks ass}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{amsthm}
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage{xcolor}
+\usepackage{float}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}[section]
+\usepackage[toc,page]{appendix}
+\usepackage{ragged2e}
+\usepackage{stmaryrd}
+\usepackage{tikz-qtree}
+\usepackage{ragged2e}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+%% We also redfine the negation symbol:
+\renewcommand{\neg}{\sim}
+\theoremstyle{definition}
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+\newcommand*\xoverline[2][0.75]{%
+    \sbox{\myboxA}{$\m@th#2$}%
+    \setbox\myboxB\null% Phantom box
+    \ht\myboxB=\ht\myboxA%
+    \dp\myboxB=\dp\myboxA%
+    \wd\myboxB=#1\wd\myboxA% Scale phantom
+    \sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+    \setlength\mylenA{\the\wd\myboxA}%   calc width diff
+    \addtolength\mylenA{-\the\wd\myboxB}%
+    \ifdim\wd\myboxB<\wd\myboxA%
+       \rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+    \else
+        \hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+    \fi}
+\makeatother
+\begin{document}
+
+\maketitle
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}
+\newtheorem{prop}{Proposition}
+\newtheorem{fact}{Fact}
+\newtheorem*{remark}{Remark}
+\pagebreak
+\section{Definitions}
+\begin{definition}
+    A \textbf{binary operation} on a non-empty set $X$ is a function $\cdot : X \times X \mapsto X$.
+\end{definition}
+\begin{definition}
+    A \textbf{monad} $(X,\cdot)$ is a set $X$ with a binary operation $\cdot$
+\end{definition}
+\begin{definition}
+    A \textbf{semigroup} $(G,\cdot)$ is a set $G$ with a binary operation $\cdot$ that is associative
+\end{definition}
+\begin{definition}
+    A \textbf{monoid} $(M,\cdot,e)$ is a set $M$ with a binary operation $\cdot$ that is associative and equiped with an identity $e$ such that for all $a \in M$, $a\cdot e = a$.
+\end{definition}
+\begin{definition}
+    A \textbf{group} $(G,\cdot,e)$ is a set $G$ with a binary operation $\cdot$ that is associative and equiped with an identity $e$ such that for all $g \in M$, $g\cdot e = g$, and for all $g \in G$, there exists $g^{-1} \in G$ such that $g\cdot g^{-1} = e$. A group is called \textbf{abelian} or \textbf{commutative} if for all $g,h \in G$, $gh=hg$.
+\end{definition}
+\begin{definition}
+    A \textbf{permutation} on a set $G$ is a bijective function $f: G \mapsto G$.
+\end{definition}
+\begin{definition}
+    A \textbf{monoid of transformations on} $X$ is a monoid $M$ where all of its elements are functions $f:X \mapsto X$. Likewise, a \textbf{group of transformations on} $X$ is a group $S$ where all of its elements are bijective functions $f:X \mapsto X$.
+\end{definition}
+\begin{definition}
+    A \textbf{symmetric group} $S_n$ is a group of transformations on a set with $n$ elements. A \textbf{permutation group} is a subgroup of $S_n$.
+\end{definition}
+\begin{definition}
+    A \textbf{dihedral group} $D_n$ is a group of symmetries on an $n-$gon.
+\end{definition}
+\begin{definition}
+    A \textbf{general linear group} $GL_n(F)$ is the group of $n\times n$ invertible matrices over the field $F$.
+\end{definition}
+\begin{definition}
+    A \textbf{subgroup} $H \leq G$ is a group equiped with the same operation as $G$ and $H \subseteq G$.
+\end{definition}
+\begin{definition}
+    A \textbf{cyclic group} is a group of the form $\langle g \rangle = \set{g^k : k \in \mathbb{Z}}$.
+\end{definition}
+\begin{definition}
+    A \textbf{homomorphism} is a function $\varphi: G \mapsto H$ where $G,H$ are groups such that for all $g,h \in G$, $\varphi(gh)=\varphi(g)\varphi(h)$. An \textbf{isomorphism} is a bijective homomorphism
+\end{definition}
+\begin{definition}
+    The \textbf{order of a group} $G$ is the number of elements in a group and is denoted $\# G$ or $|G|$ (or if you suck Jacobson's cock, $o(G)$). The \textbf{order of an element} $g$ is the smallest $n \in \mathbb{N}$ such that $g^n = e$, and is denoted $\# g$ or $|g|$ (or $o(g)$).
+\end{definition}
+\begin{definition}
+    An \textbf{element} $g \in G$ \textbf{of maximal order} is an element such that for all $h \in G$, $h^{\# g} = e$.
+\end{definition}
+\begin{definition}
+    The \textbf{exponent} of a group denoted $\mathrm{exp} G$ is the smallest $n \in \mathbb{N}$ such that for all $g \in G$, $g^n = e$
+\end{definition}
+\begin{definition}
+    The \textbf{centraliser} of a subset $A \subseteq G$ is the set $C(A) = \set{g \in G : \forall a \in A, ga = ag}$. It can also be denoted as $Z_G(A)$. Similarly, the centraliser of $a$ is the set $C(a) = \set{g \in G : ga=ag}$.
+\end{definition}
+\begin{definition}
+    The \textbf{centre} of a group $G$ is the set $Z(G) = \set{g \in G : \forall h \in G, gh = hg}$.
+\end{definition}
+\begin{definition}
+    A \textbf{cycle} $(a_1 a_2 a_3 \ldots a_n)$ is a permutation $a_1 \mapsto a_2 \mapsto a_3 \mapsto \ldots \mapsto a_n \mapsto a_1$ where $a_i \neq a_j$ for all $i,j$. Two cycles $(a_1 a_2 a_3 \ldots a_n)(b_1 b_2 b_3 \ldots b_m)$ are disjoint if $a_i \neq b_j$ for all $i,j$. The \textbf{length} of a cycle is the number of terms of a cycle. A cycle with length $n$ is called an $n-$\textbf{cycle}.
+\end{definition}
+\begin{definition}
+    A \textbf{transposition} is a cycle of the form $(ab)$.
+\end{definition}
+\begin{definition}
+    The \textbf{signum} of a permutation $\sigma$ denoted $\mathrm{sgn}(\sigma)$ is defined as $-1$ if $\sigma$ is a product of an odd number of transpositions and $1$ if $\sigma$ is a product of an even number of transpositions.
+\end{definition}
+\begin{definition}
+    The \textbf{alternating group} $A_n$ is the group of even permutations in $S_n$.
+\end{definition}
+\begin{definition}
+   Let $G$ be a group and $S$ be a set. Then, a \textbf{left group action} of $G$ on a set $S$ is a function $\alpha_L : G \times S \mapsto S$ such that $\alpha_L(e,x) = x$ (identity( and $\alpha(g,\alpha_L(h,x)) = \alpha_L(gh,x)$ (compatibility). You can probably guess a \textbf{right group action} is.
+\end{definition}
+\begin{definition}
+    A \textbf{orbit} of $x \in S$ under a left group action is the set $G\cdot x = \set{gx | g \in G}$. 
+\end{definition}
+\begin{definition}
+    A \textbf{left coset} of a subgroup $H$ is $aH = \set{ah : h \in H}$. \textbf{Right cosets} are defined similarly.
+\end{definition}
+\begin{definition}
+    The \textbf{index} of $H$ where $H \leq G$ is the number of distinct (left) cosets of $H$ (the number of left and right cosets are in bijection).
+\end{definition}
+\begin{definition}
+    Let $(M,\cdot,e)$ be a monoid. Then, a \textbf{congruence} $\equiv$ in $M$ is an equivalence relation on $M$ such that for all $a,a',b,b' \in M$, if $a \equiv a'$ and $b \equiv b'$ then $ab \equiv ab'$.
+\end{definition}
+\begin{definition}
+    A subgroup $K \trianglelefteq G$ is \textbf{normal} if for all $g \in G$, $gKg^{-1} = K$.
+\end{definition}
+\begin{definition}
+    A group $G$ is called \textbf{simple} if the only normal subgroups of $G$ are $\set{e}$ and $G$.
+\end{definition}
+\begin{definition}
+    The \textbf{fibre} of $h\in H$ under $f:G \mapsto H$ is the preimage $f^{-1}(\set{h})$.
+\end{definition}
+\begin{definition}
+    A \textbf{quotient group} $G/K$ where $K \trianglelefteq G$ is a group where elements of $G/K$ are cosets of $K$ and multiplication is defined as $(aK)(bK)=(abK)$.
+\end{definition}
+\section{Formulae}
+\begin{align*}
+    \# \langle g^n \rangle &= \frac{\# g}{\gcd{(\# g, n)}} \\
+        \# G &= \#H[G:H] \\
+        [G:K] &= [G:H][H:K] \\
+        Z(G) &= \bigcap_{g \in G} C(g) \\
+        (ab)(ac_1 \ldots c_k b d_1 \ldots d_k)&=(bd_1\ldots d_k)(ac_1\ldots c_h)
+\end{align*}
+\section{Theorems, corollaries, and lemmata}
+Try proving each of the following as an exercise
+\begin{corollary}
+   Let $G$ be a group. $e$ is a right identity on $G$ if and only if $e$ is a left identity on $G$.
+\end{corollary}
+\begin{corollary}
+    Let $G$ be a group and $g \in G$. Then, $g^{-1}$ is a right inverse of $g$ if and only if $g^{-1}$ is a left inverse of $g$
+\end{corollary}
+\begin{theorem}
+    Let $G$ be a semigroup with a right identity and right inverses. Then, $G$ is a group. Likewise, if $G$ is a semigroup with a left identity and left inverses, then $G$ is a group. (Note that right identity + left inverse does not imply $G$ is a group)
+\end{theorem}
+\begin{corollary}
+    $\#S_n = n!$
+\end{corollary}
+\begin{theorem}
+    Any cyclic groups with the same order are isomorphic.
+\end{theorem}
+\begin{theorem}
+Any subgroup of a cyclic group is cyclic. 
+\end{theorem}
+\begin{theorem}
+    If $\langle a \rangle$ is infinite, then the non-trivial subgroups of $\langle a \rangle$ are infinite and $f: s \mapsto \langle a^s \rangle$ is a bijective map that maps $\mathbb{N}$ to subgroups of $\langle a \rangle$. 
+\end{theorem}
+\begin{theorem}
+    If $\# \langle a \rangle = r < \infty$, for all divisors $q$ of $r$, there is a unique cyclic subgroup of order $q$.
+\end{theorem}
+\begin{corollary}
+    If $\# \langle a \rangle = r < \infty$, then the subgroup $H$ of order $q$ is $H = \set{b \in \langle a \rangle : b^q = e}$.
+\end{corollary}
+\begin{lemma}
+    Let $G$ be abelian, $g,h \in G$ with $\gcd(\#g,\#h)=1$. Then, $\#(gh)=\#g \#h$.
+\end{lemma}
+\begin{lemma}
+    Let $G$ be a finite abelian group where $g$ has maximal order. Then, $\mathrm{exp}G = \# G$.
+\end{lemma}
+\begin{theorem}
+    Let $G$ be a finite abelian group. Then, $G$ is cyclic if and only if $\mathrm{exp}G = \#G$
+\end{theorem}
+\begin{corollary}
+    A homomorphism must map the identity to the identity and the inverse  of $g$ to the inverse of $f(g)$.
+\end{corollary}
+\begin{corollary}
+    Disjoint cycles commute.
+\end{corollary}
+\begin{theorem}
+    Any permutation can be decomposed into a unique product of disjoint cycles up to order.
+\end{theorem}
+\begin{theorem}
+    Any permutation is either odd or even. (Any permutation can be decomposed into a product of transpositions and the product will always have an odd or even number of transpositions)
+\end{theorem}
+\begin{theorem}
+    Let $G$ be a finite group and $H$ be a subgroup. Then, $\#H \mid \#G$
+\end{theorem}
+\begin{theorem}
+    Any intersection of submonoids of $M$ is a submonoid of $M$; Any intersection of subgroups of $G$ is a subgroup of $G$.
+\end{theorem}
+\begin{theorem}
+    Any subgroup with index 2 is normal.
+\end{theorem}
+\begin{corollary}
+    $A_n$ is a normal subgroup of $S_n$.
+\end{corollary}
+\begin{theorem}
+    The intersection of normal subgroups of $G$ gives a normal subgroup of $G$.
+\end{theorem}
+\begin{theorem}
+    Let $H$ and $K$ be a subgroup of $G$. Then, for all $a \in G$, $(H\cap K)a = Ha \cap Ka$.
+\end{theorem}
+\begin{corollary}
+    If $H$ and $K$ have finite index then so does $H \cap K$.
+\end{corollary}
+\end{document}
